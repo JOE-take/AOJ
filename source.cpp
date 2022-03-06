@@ -23,14 +23,26 @@ int main(){
     for(int i=0; i<n; i++){
         
     }
-    int k = 0;
-    int count;
-    S.push_back(0);
-    for(int i=0; i<T.size(); i++){
-        k = 0;
-        S[n] = T[i];
-        while(S[k] != T[i]) k++;
-        if(k != n) count++;
+    int count = 0;
+    int current = 0;
+    int left = 0;
+    int right = n;
+
+    for(int i=0; i<q; i++){
+        while(left < right){
+            current = (right + left) / 2;
+            if(T[i] == S[current]){
+                count++;
+                break;
+            }
+            else if(S[current] < T[i]){
+                left = current + 1;
+            }
+            else if(T[i] < S[current]){
+                right = current;
+            }
+        }
+        current = 0; left = 0; right = n;
     }
     cout << count << "\n";
     return 0;
