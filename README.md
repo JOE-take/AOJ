@@ -1,0 +1,1 @@
+[My Profile of AOJ](https://onlinejudge.u-aizu.ac.jp/status/users/takejoe)
