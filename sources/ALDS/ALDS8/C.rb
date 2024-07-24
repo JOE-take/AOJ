@@ -69,13 +69,10 @@ class BinTree
 
     # 子が2つの場合
     elsif !node.left.nil? && !node.right.nil?
-      if !node.right.nil?
-        succeser = node.right
-      else
-        succeser = node.parent
-      end
-      node.key = succeser.key
-      delete(succeser.key)
+      successor = findMin(node.right)
+      value = successor.value
+      delete(successor.value)
+      node.value = value
 
     # 子が1つの場合
     else
@@ -95,16 +92,24 @@ class BinTree
   end
 end
 
-def findRec(key, node)
-  return nil if node.nil?
-  if node.value == key
-    return node
-  elsif node.value > key
-    return findRec(key, node.left)
-  else
-    return findRec(key, node.right)
+def findMin(node)
+  current = node
+  while !current.left.nil?
+    current = current.left
   end
+  current
 end
+
+def findRec(key, node)
+    return nil if node.nil?
+    if node.value == key
+      return node
+    elsif node.value > key
+      return findRec(key, node.left)
+    else
+      return findRec(key, node.right)
+    end
+  end
 
 def preorder(node)
   return if node.nil?
@@ -121,9 +126,12 @@ def inorder(node)
 end
 
 tree = BinTree.new
+lines = []
 n = gets.to_i
 (0...n).each do
-  line = gets.split(' ')
+  lines << gets.split(' ')
+end
+lines.each do |line|
   if line[0] == "print"
     tree.printTree
     next
